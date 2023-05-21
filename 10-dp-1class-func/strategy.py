@@ -58,10 +58,7 @@ class Order:  # the Context
         return sum(totals, start=Decimal(0))
 
     def due(self) -> Decimal:
-        if self.promotion is None:
-            discount = Decimal(0)
-        else:
-            discount = self.promotion(self)  # <2>
+        discount = Decimal(0) if self.promotion is None else self.promotion(self)
         return self.total() - discount
 
     def __repr__(self):

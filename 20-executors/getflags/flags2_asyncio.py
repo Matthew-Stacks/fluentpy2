@@ -39,11 +39,10 @@ async def download_one(client: httpx.AsyncClient,
             image = await get_flag(client, base_url, cc)
     except httpx.HTTPStatusError as exc:  # <4>
         res = exc.response
-        if res.status_code == HTTPStatus.NOT_FOUND:
-            status = DownloadStatus.NOT_FOUND
-            msg = f'not found: {res.url}'
-        else:
+        if res.status_code != HTTPStatus.NOT_FOUND:
             raise
+        status = DownloadStatus.NOT_FOUND
+        msg = f'not found: {res.url}'
     else:
         await asyncio.to_thread(save_flag, image, f'{cc}.gif')  # <5>
         status = DownloadStatus.OK
@@ -95,9 +94,7 @@ def download_many(cc_list: list[str],
                   verbose: bool,
                   concur_req: int) -> Counter[DownloadStatus]:
     coro = supervisor(cc_list, base_url, verbose, concur_req)
-    counts = asyncio.run(coro)  # <14>
-
-    return counts
+    return asyncio.run(coro)
 
 if __name__ == '__main__':
     main(download_many, DEFAULT_CONCUR_REQ, MAX_CONCUR_REQ)

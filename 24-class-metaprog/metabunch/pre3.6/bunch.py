@@ -2,7 +2,7 @@ import collections
 import warnings
 
 class MetaBunch(type):
-    def __prepare__(name, *bases, **kwargs):
+    def __prepare__(self, *bases, **kwargs):
         return collections.OrderedDict()
 
     def __new__(meta_cls, cls_name, bases, cls_dict):

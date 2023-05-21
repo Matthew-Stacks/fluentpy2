@@ -71,7 +71,7 @@ class Result(NamedTuple):  # <1>
 
 class Sentinel:  # <3>
     def __repr__(self):
-        return f'<Sentinel>'
+        return '<Sentinel>'
 
 STOP = Sentinel()  # <4>
 

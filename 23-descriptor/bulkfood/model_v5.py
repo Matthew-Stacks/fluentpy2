@@ -29,8 +29,8 @@ class NonBlank(Validated):
     """a string with at least one non-space character"""
 
     def validate(self, name, value):
-        value = value.strip()
-        if not value:  # <2>
+        if value := value.strip():
+            return value  # <3>
+        else:
             raise ValueError(f'{name} cannot be blank')
-        return value  # <3>
 # end::MODEL_V5_VALIDATED_SUB[]

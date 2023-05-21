@@ -54,11 +54,7 @@ def report(workers: int, results: ResultQueue) -> int:
     return checked
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        workers = os.cpu_count()
-    else:
-        workers = int(sys.argv[1])
-
+    workers = os.cpu_count() if len(sys.argv) < 2 else int(sys.argv[1])
     print(f'Checking {len(NUMBERS)} numbers with {workers} threads:')
     t0 = perf_counter()
     jobs: JobQueue = SimpleQueue()

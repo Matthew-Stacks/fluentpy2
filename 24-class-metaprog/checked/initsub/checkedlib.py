@@ -97,10 +97,10 @@ class Checked:
     def _fields(cls) -> dict[str, type]:  # <1>
         return get_type_hints(cls)
 
-    def __init_subclass__(subclass) -> None:  # <2>
+    def __init_subclass__(cls) -> None:  # <2>
         super().__init_subclass__()           # <3>
-        for name, constructor in subclass._fields().items():   # <4>
-            setattr(subclass, name, Field(name, constructor))  # <5>
+        for name, constructor in cls._fields().items():   # <4>
+            setattr(cls, name, Field(name, constructor))
 
     def __init__(self, **kwargs: Any) -> None:
         for name in self._fields():             # <6>

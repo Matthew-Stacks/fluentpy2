@@ -27,6 +27,5 @@ def to_xml(book: BookDict) -> str:  # <1>
 
 # tag::FROMJSON[]
 def from_json(data: str) -> BookDict:
-    whatever = json.loads(data)  # <1>
-    return whatever  # <2>
+    return json.loads(data)
 # end::FROMJSON[]

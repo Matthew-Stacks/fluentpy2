@@ -28,11 +28,11 @@ you can define it as a class attribute::
 
 
 class _SentinelMeta(type):
-    def __repr__(cls):
+    def __repr__(self):
         try:
-            return cls.repr
+            return self.repr
         except AttributeError:
-            return cls.__name__
+            return self.__name__
 
 
 class Sentinel(metaclass=_SentinelMeta):

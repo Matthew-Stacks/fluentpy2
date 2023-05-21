@@ -108,7 +108,7 @@ class Vector2d:
         return self.__y
 
     def __iter__(self):
-        return (i for i in (self.x, self.y))  # <6>
+        return iter((self.x, self.y))
 
     # remaining methods: same as previous Vector2d
 # end::VECTOR2D_V3_PROP[]

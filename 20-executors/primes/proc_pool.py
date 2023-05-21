@@ -24,11 +24,7 @@ def check(n: int) -> PrimeResult:
     return PrimeResult(n, res, perf_counter() - t0)
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        workers = None      # <3>
-    else:
-        workers = int(sys.argv[1])
-
+    workers = None if len(sys.argv) < 2 else int(sys.argv[1])
     executor = futures.ProcessPoolExecutor(workers)  # <4>
     actual_workers = executor._max_workers  # type: ignore  # <5>
 

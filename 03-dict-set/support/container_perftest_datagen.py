@@ -2,6 +2,7 @@
 Generate data for container performance test
 """
 
+
 import array
 import random
 
@@ -12,7 +13,7 @@ SAMPLE_LEN = HAYSTACK_LEN + NEEDLES_LEN // 2
 
 needles = array.array('d')
 
-sample = {1 / random.random() for i in range(SAMPLE_LEN)}
+sample = {1 / random.random() for _ in range(SAMPLE_LEN)}
 print(f'initial sample: {len(sample)} elements')
 
 # complete sample, in case duplicate random numbers were discarded

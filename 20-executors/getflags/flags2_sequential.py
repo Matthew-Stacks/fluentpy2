@@ -40,11 +40,10 @@ def download_one(cc: str, base_url: str, verbose: bool = False) -> DownloadStatu
         image = get_flag(base_url, cc)
     except httpx.HTTPStatusError as exc:  # <4>
         res = exc.response
-        if res.status_code == HTTPStatus.NOT_FOUND:
-            status = DownloadStatus.NOT_FOUND  # <5>
-            msg = f'not found: {res.url}'
-        else:
+        if res.status_code != HTTPStatus.NOT_FOUND:
             raise  # <6>
+        status = DownloadStatus.NOT_FOUND  # <5>
+        msg = f'not found: {res.url}'
     else:
         save_flag(image, f'{cc}.gif')
         status = DownloadStatus.OK

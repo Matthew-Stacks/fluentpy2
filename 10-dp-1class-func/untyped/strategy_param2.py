@@ -53,10 +53,7 @@ class Order:  # the Context
         return self.__total
 
     def due(self):
-        if self.promotion is None:
-            discount = 0
-        else:
-            discount = self.promotion(self)  # <1>
+        discount = 0 if self.promotion is None else self.promotion(self)
         return self.total() - discount
 
     def __repr__(self):
@@ -86,11 +83,11 @@ class BulkItemPromo(Promotion):
     """discount for each LineItem with 20 or more units"""
 
     def __call__(self, order):
-        discount = 0
-        for item in order.cart:
-            if item.quantity >= 20:
-                discount += item.total() * self.percent / 100
-        return discount
+        return sum(
+            item.total() * self.percent / 100
+            for item in order.cart
+            if item.quantity >= 20
+        )
 
 
 class LargeOrderPromo(Promotion):
@@ -98,6 +95,4 @@ class LargeOrderPromo(Promotion):
 
     def __call__(self, order):
         distinct_items = {item.product for item in order.cart}
-        if len(distinct_items) >= 10:
-            return order.total() * self.percent / 100
-        return 0
+        return order.total() * self.percent / 100 if len(distinct_items) >= 10 else 0

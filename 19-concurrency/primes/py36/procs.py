@@ -37,11 +37,7 @@ def worker(jobs: JobQueue, results: ResultQueue) -> None:  # <7>
 
 # tag::PRIMES_PROC_MAIN[]
 def main() -> None:
-    if len(sys.argv) < 2:  # <1>
-        workers = cpu_count()
-    else:
-        workers = int(sys.argv[1])
-
+    workers = cpu_count() if len(sys.argv) < 2 else int(sys.argv[1])
     print(f'Checking {len(NUMBERS)} numbers with {workers} processes:')
 
     jobs: JobQueue = SimpleQueue() # <2>

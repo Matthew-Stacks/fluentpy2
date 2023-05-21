@@ -22,7 +22,7 @@ else:
 mem_init = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
 print(f'Creating {NUM_VECTORS:,} {cls.__qualname__!r} instances')
 
-vectors = [cls(3.0, 4.0) for i in range(NUM_VECTORS)]
+vectors = [cls(3.0, 4.0) for _ in range(NUM_VECTORS)]
 
 mem_final = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
 print(f'Initial RAM usage: {mem_init:14,}')
