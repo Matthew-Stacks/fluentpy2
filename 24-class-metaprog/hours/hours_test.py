@@ -62,10 +62,6 @@ def test_class_getitem_errors(hms, units):
     assert units in str(excinfo.value)
 
 
-@pytest.mark.parametrize('hms1, hms2, expected', [
-    (H[0:30], H[0:15], H[0:45]),
-    (H[0:30], H[0:30], H[1:00]),
-    (H[0:59:59], H[0:00:1], H[1:00]),
-])
+@pytest.mark.parametrize('hms1, hms2, expected', [(H[:30], H[:15], H[:45]), (H[:30], H[:30], H[1:00]), (H[:59:59], H[:00:1], H[1:00])])
 def test_add(hms1, hms2, expected):
     assert expected == hms1 + hms2

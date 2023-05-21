@@ -74,10 +74,7 @@ def load(path=JSON_PATH):
         record_type = collection[:-1]
         cls_name = record_type.capitalize()
         cls = globals().get(cls_name, Record)
-        if inspect.isclass(cls) and issubclass(cls, Record):
-            factory = cls
-        else:
-            factory = Record
+        factory = cls if inspect.isclass(cls) and issubclass(cls, Record) else Record
         for raw_record in raw_records:
             key = f'{record_type}.{raw_record["serial"]}'
             records[key] = factory(**raw_record)

@@ -66,10 +66,7 @@ class Order:  # the Context
         return self.__total
 
     def due(self) -> float:
-        if self.promotion is None:
-            discount = 0.0
-        else:
-            discount = self.promotion(self)  # <1>
+        discount = 0.0 if self.promotion is None else self.promotion(self)
         return self.total() - discount
 
     def __repr__(self):
@@ -109,9 +106,7 @@ class LargeOrderPromo:
 
     def __call__(self, order: Order) -> float:
         distinct_items = {item.product for item in order.cart}
-        if len(distinct_items) >= 10:
-            return order.total() * self.percent / 100
-        return 0
+        return order.total() * self.percent / 100 if len(distinct_items) >= 10 else 0
 
 
 def general_discount(percent: float, order: Order) -> float:

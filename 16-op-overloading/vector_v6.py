@@ -321,10 +321,7 @@ class Vector:
     def angle(self, n):
         r = math.hypot(*self[n:])
         a = math.atan2(r, self[n-1])
-        if (n == len(self) - 1) and (self[-1] < 0):
-            return math.pi * 2 - a
-        else:
-            return a
+        return math.pi * 2 - a if (n == len(self) - 1) and (self[-1] < 0) else a
 
     def angles(self):
         return (self.angle(n) for n in range(1, len(self)))

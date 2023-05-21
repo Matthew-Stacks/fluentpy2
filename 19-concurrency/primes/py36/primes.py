@@ -37,10 +37,7 @@ def is_prime(n: int) -> bool:
         return False
 
     root = math.floor(math.sqrt(n))
-    for i in range(3, root + 1, 2):
-        if n % i == 0:
-            return False
-    return True
+    return all(n % i != 0 for i in range(3, root + 1, 2))
 # end::IS_PRIME[]
 
 if __name__ == '__main__':

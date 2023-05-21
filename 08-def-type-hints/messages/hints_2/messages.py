@@ -19,7 +19,7 @@ def show_count(count: int, singular: str, plural: str = '') -> str:
         return f'1 {singular}'
     count_str = str(count) if count else 'no'
     if not plural:
-        plural = singular + 's'
+        plural = f'{singular}s'
     return f'{count_str} {plural}'
 
 # end::SHOW_COUNT[]

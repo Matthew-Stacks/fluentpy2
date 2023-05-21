@@ -63,14 +63,11 @@ class T():
     def __repr__(self):
         h, m, s = self.h, self.m, self.s or None
         if m == 0:
-            m = f'OO'
+            m = 'OO'
         elif m < 10:
             m = f'O{m}'
         s = '' if s is None else s
-        if self.pm is None:
-            pm = ''
-        else:
-            pm = ':' + ('AM', 'PM')[self.pm]
+        pm = '' if self.pm is None else ':' + ('AM', 'PM')[self.pm]
         return f'T[{h}:{m}{s}{pm}]'
 
     def __iter__(self):

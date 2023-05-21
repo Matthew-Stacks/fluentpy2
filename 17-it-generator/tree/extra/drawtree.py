@@ -16,8 +16,7 @@ def subclasses(cls):
 
 def tree(cls, level=0, last_sibling=True):
     yield cls, level, last_sibling
-    children = subclasses(cls)
-    if children:
+    if children := subclasses(cls):
         last = children[-1]
         for child in children:
             yield from tree(child, level+1, child is last)

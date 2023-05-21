@@ -11,7 +11,7 @@ first = machine.pick()  # <2>
 remain = machine.inspect()  # <3>
 # end::LOTTO_USE[]
 
-expected = set(i for i in range(1, 11) if i != first)
+expected = {i for i in range(1, 11) if i != first}
 
 assert set(remain) == expected
 

@@ -33,8 +33,8 @@ def test_double_fraction() -> None:
 def test_double_array() -> None:
     from array import array
     given = array('d', [1.0, 2.0, 3.14])
-    result = double(given)
     if TYPE_CHECKING:
+        result = double(given)
         reveal_type(given)
         reveal_type(result)
 

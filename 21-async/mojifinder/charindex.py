@@ -42,8 +42,7 @@ Index = defaultdict[str, set[Char]]
 
 def tokenize(text: str) -> Iterator[str]:
     """return iterator of uppercased words"""
-    for word in text.upper().replace('-', ' ').split():
-        yield word
+    yield from text.upper().replace('-', ' ').split()
 
 
 class InvertedIndex:
@@ -52,8 +51,7 @@ class InvertedIndex:
     def __init__(self, start: int = 32, stop: int = STOP_CODE):
         entries: Index = defaultdict(set)
         for char in (chr(i) for i in range(start, stop)):
-            name = unicodedata.name(char, '')
-            if name:
+            if name := unicodedata.name(char, ''):
                 for word in tokenize(name):
                     entries[word].add(char)
         self.entries = entries

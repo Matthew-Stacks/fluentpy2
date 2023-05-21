@@ -20,8 +20,7 @@ def subclasses(cls):
 
 def tree(cls, level=0, last_sibling=True):
     yield cls, level, last_sibling
-    chidren = subclasses(cls)
-    if chidren:
+    if chidren := subclasses(cls):
         last = chidren[-1]
         for child in chidren:
             yield from tree(child, level + 1, child is last)
@@ -44,10 +43,7 @@ def draw(cls):
 
 
 def parse(name):
-    if '.' in name:
-        return name.rsplit('.', 1)
-    else:
-        return 'builtins', name
+    return name.rsplit('.', 1) if '.' in name else ('builtins', name)
 
 
 def main(name):

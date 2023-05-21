@@ -86,7 +86,7 @@ class Persistent:
 
     def __init_subclass__(cls, *, table: str = '', **kwargs: Any):
         super().__init_subclass__(**kwargs)  # type:ignore
-        cls._TABLE_NAME = table if table else cls.__name__.lower() + 's'
+        cls._TABLE_NAME = table if table else f'{cls.__name__.lower()}s'
         for name, py_type in cls._fields().items():
             setattr(cls, name, Field(name, py_type))
 

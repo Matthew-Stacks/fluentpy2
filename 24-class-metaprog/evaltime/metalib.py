@@ -18,8 +18,8 @@ class MetaKlass(type):
     print('% MetaKlass body')
 
     @classmethod  # <1>
-    def __prepare__(meta_cls, cls_name, bases):  # <2>
-        args = (meta_cls, cls_name, bases)
+    def __prepare__(cls, cls_name, bases):  # <2>
+        args = cls, cls_name, bases
         print(f'% MetaKlass.__prepare__{args!r}')
         return NosyDict()  # <3>
 
@@ -35,8 +35,8 @@ class MetaKlass(type):
 
         return cls  # <7>
 
-    def __repr__(cls):  # <8>
-        cls_name = cls.__name__
+    def __repr__(self):  # <8>
+        cls_name = self.__name__
         return f"<class {cls_name!r} built by MetaKlass>"
 
 print('% metalib module end')

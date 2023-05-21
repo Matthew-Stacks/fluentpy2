@@ -48,15 +48,13 @@ class SlowHTTPRequestHandler(SimpleHTTPRequestHandler):
                 self.send_error(HTTPStatus.IM_A_TEAPOT, "I'm a Teapot")
             except BrokenPipeError as exc:
                 print(f'{cc} *** BrokenPipeError: client closed')
-        else:
-            f = self.send_head()
-            if f:
-                try:
-                    self.copyfile(f, self.wfile)
-                except BrokenPipeError as exc:
-                    print(f'{cc} *** BrokenPipeError: client closed')
-                finally:
-                    f.close()
+        elif f := self.send_head():
+            try:
+                self.copyfile(f, self.wfile)
+            except BrokenPipeError as exc:
+                print(f'{cc} *** BrokenPipeError: client closed')
+            finally:
+                f.close()
 
 # The code in the `if` block below, including comments, was copied
 # and adapted from the `http.server` module of Python 3.9

@@ -23,7 +23,7 @@ class MetaBunch(type):
     In v3, the order of data attributes remains the same as in the
     class body; in v2, there is no such guarantee.
     """
-    def __prepare__(name, *bases, **kwargs):
+    def __prepare__(self, *bases, **kwargs):
         # precious in v3—harmless although useless in v2
         return collections.OrderedDict()
 

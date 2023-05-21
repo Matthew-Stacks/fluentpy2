@@ -89,7 +89,7 @@ class IsoRecord(object):
         if len(label) == 0:
             raise StopIteration
         elif len(label) != 24:
-            raise ValueError('Invalid record label: "%s"' % label)
+            raise ValueError(f'Invalid record label: "{label}"')
         parts = unpack(LABEL_FORMAT, label)
         for name, part in zip(self.label_part_names, parts):
             if name.endswith('_len') or name.endswith('_addr'):
@@ -101,7 +101,7 @@ class IsoRecord(object):
             print('%15s : %r' % (name, getattr(self, name)))
 
     def load_directory(self):
-        fmt_dir = '3s %ss %ss %ss' % (self.fld_len_len, self.start_len, self.impl_len)
+        fmt_dir = f'3s {self.fld_len_len}s {self.start_len}s {self.impl_len}s'
         entry_len = TAG_LEN + self.fld_len_len + self.start_len + self.impl_len
         self.directory = []
         while True:
@@ -133,8 +133,7 @@ class IsoRecord(object):
         return self
 
     def next(self):
-        for field in self.directory:
-            yield(field)
+        yield from self.directory
 
     __next__ = next # Python 3 compatibility
 

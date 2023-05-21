@@ -51,11 +51,11 @@ class WilyDict(dict):
 
 
 class MicroEnumMeta(type):
-    def __prepare__(name, bases, **kwargs):
+    def __prepare__(self, bases, **kwargs):
         return WilyDict()
 
-    def __getitem__(cls, key):
-        for k, v in cls.__dict__.items():
+    def __getitem__(self, key):
+        for k, v in self.__dict__.items():
             if v == key:
                 return k
         raise KeyError(key)

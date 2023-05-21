@@ -31,10 +31,9 @@ def tag(name, *content, class_=None, **attrs):
     attr_pairs = (f' {attr}="{value}"' for attr, value
                     in sorted(attrs.items()))
     attr_str = ''.join(attr_pairs)
-    if content:
-        elements = (f'<{name}{attr_str}>{c}</{name}>'
-                    for c in content)
-        return '\n'.join(elements)
-    else:
+    if not content:
         return f'<{name}{attr_str} />'
+    elements = (f'<{name}{attr_str}>{c}</{name}>'
+                for c in content)
+    return '\n'.join(elements)
 # end::TAG_FUNC[]

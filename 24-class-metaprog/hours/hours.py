@@ -91,9 +91,7 @@ class Hours:
         h, m, s = self
         display_s = f'{s:06.3f}'
         display_s = display_s.rstrip('0').rstrip('.')
-        if display_s == '00':
-            return f'{h}:{m:02d}'
-        return f'{h}:{m:02d}:{display_s}'
+        return f'{h}:{m:02d}' if display_s == '00' else f'{h}:{m:02d}:{display_s}'
 
     def __float__(self):
         return self.h + self.m / 60 + self.s / 3600

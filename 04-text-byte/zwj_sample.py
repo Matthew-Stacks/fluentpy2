@@ -20,7 +20,7 @@ for line in zwg_sample.strip().split('\n'):
     print(''.join(chars), version, descr, sep='\t', end='')
     for char in chars:
         if char in markers:
-            print(' + ' + markers[char], end='')
+            print(f' + {markers[char]}', end='')
         else:
             ucode = f'U+{ord(char):04X}'
             print(f'\n\t{char}\t{ucode}\t{name(char)}', end='')

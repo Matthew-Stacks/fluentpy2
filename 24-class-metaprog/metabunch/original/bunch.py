@@ -39,7 +39,7 @@ class metaMetaBunch(type):
             rep = [ '%s=%r' % (k, getattr(self, k)) for k in self.__dflts__
                     if getattr(self, k) != self.__dflts__[k]
                   ]
-            return '%s(%s)' % (classname, ', '.join(rep))
+            return f"{classname}({', '.join(rep)})"
 
         # build the newdict that we'll use as class-dict for the new class
         newdict = { '__slots__':[], '__dflts__':{},

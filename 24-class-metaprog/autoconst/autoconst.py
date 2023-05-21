@@ -14,7 +14,7 @@ class WilyDict(dict):
 
 # tag::AUTOCONST[]
 class AutoConstMeta(type):
-    def __prepare__(name, bases, **kwargs):
+    def __prepare__(self, bases, **kwargs):
         return WilyDict()
 
 class AutoConst(metaclass=AutoConstMeta):

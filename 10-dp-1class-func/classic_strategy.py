@@ -79,9 +79,7 @@ class FidelityPromo(Promotion):  # first Concrete Strategy
 
     def discount(self, order: Order) -> Decimal:
         rate = Decimal('0.05')
-        if order.customer.fidelity >= 1000:
-            return order.total() * rate
-        return Decimal(0)
+        return order.total() * rate if order.customer.fidelity >= 1000 else Decimal(0)
 
 
 class BulkItemPromo(Promotion):  # second Concrete Strategy

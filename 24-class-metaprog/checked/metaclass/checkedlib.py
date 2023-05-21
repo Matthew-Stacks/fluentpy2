@@ -75,13 +75,11 @@ class Field:
         if not callable(constructor) or constructor is type(None):
             raise TypeError(f'{name!r} type hint must be callable')
         self.name = name
-        self.storage_name = '_' + name  # <1>
+        self.storage_name = f'_{name}'
         self.constructor = constructor
 
     def __get__(self, instance, owner=None):
-        if instance is None:  # <2>
-            return self
-        return getattr(instance, self.storage_name)  # <3>
+        return self if instance is None else getattr(instance, self.storage_name)
 
     def __set__(self, instance: Any, value: Any) -> None:
         if value is ...:
@@ -99,7 +97,7 @@ class Field:
 # tag::CHECKED_META[]
 class CheckedMeta(type):
 
-    def __new__(meta_cls, cls_name, bases, cls_dict):  # <1>
+    def __new__(cls, cls_name, bases, cls_dict):  # <1>
         if '__slots__' not in cls_dict:  # <2>
             slots = []
             type_hints = cls_dict.get('__annotations__', {})  # <3>
@@ -110,8 +108,7 @@ class CheckedMeta(type):
 
             cls_dict['__slots__'] = slots  # <8>
 
-        return super().__new__(
-                meta_cls, cls_name, bases, cls_dict)  # <9>
+        return super().__new__(cls, cls_name, bases, cls_dict)
 # end::CHECKED_META[]
 
 # tag::CHECKED_CLASS[]

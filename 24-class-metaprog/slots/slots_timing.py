@@ -2,8 +2,8 @@
 
 class Wrong:
 
-    def __init_subclass__(subclass):
-        subclass.__slots__ = ('x', 'y')
+    def __init_subclass__(cls):
+        cls.__slots__ = ('x', 'y')
 
 
 class Klass0(Wrong):
@@ -17,10 +17,9 @@ print('o.z = 3  # did not raise Attribute error because __slots__ was created to
 
 class Correct1(type):
 
-    def __new__(meta_cls, cls_name, bases, cls_dict):
+    def __new__(cls, cls_name, bases, cls_dict):
         cls_dict['__slots__'] = ('x', 'y')
-        return super().__new__(
-                    meta_cls, cls_name, bases, cls_dict)
+        return super().__new__(cls, cls_name, bases, cls_dict)
 
 
 class Klass1(metaclass=Correct1):
@@ -34,7 +33,7 @@ except AttributeError as e:
 
 
 class Correct2(type):
-    def __prepare__(name, bases):
+    def __prepare__(self, bases):
         return dict(__slots__=('x', 'y'))
 
 class Klass2(metaclass=Correct2):

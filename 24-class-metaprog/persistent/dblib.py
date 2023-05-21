@@ -132,7 +132,7 @@ def fetch_record(table_name: str, pk: int) -> sqlite3.Row:
     con = get_connection()
     sql = f'SELECT * FROM {table_name} WHERE pk = ? LIMIT 2'
     result = list(con.execute(sql, (pk,)))
-    if len(result) == 0:
+    if not result:
         raise NoSuchRecord(pk)
     elif len(result) == 1:
         return result[0]

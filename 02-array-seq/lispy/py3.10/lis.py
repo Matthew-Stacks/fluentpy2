@@ -34,16 +34,16 @@ def tokenize(s: str) -> list[str]:
 
 def read_from_tokens(tokens: list[str]) -> Expression:
     "Read an expression from a sequence of tokens."
-    if len(tokens) == 0:
+    if not tokens:
         raise SyntaxError('unexpected EOF while reading')
     token = tokens.pop(0)
-    if '(' == token:
+    if token == '(':
         exp = []
         while tokens[0] != ')':
             exp.append(read_from_tokens(tokens))
         tokens.pop(0)  # discard ')'
         return exp
-    elif ')' == token:
+    elif token == ')':
         raise SyntaxError('unexpected )')
     else:
         return parse_atom(token)
